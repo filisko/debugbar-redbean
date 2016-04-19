@@ -14,23 +14,29 @@ class RedBeanCollector extends \DebugBar\DataCollector\DataCollector implements 
     public function collect()
     {
         // Get all SQL output
-        $output = $this->debugStack->grep(' ');
-        $queries = array();
-        foreach ($output as $key => $value)
+        $queries = [];
+        
+        if ($this->debugStack)
         {
-            // Clean all "resuldsets" outputs
-            if (substr($value, 0, 9) == 'resultset')
+            $output = $this->debugStack->grep(' ');
+            $queries = array();
+            foreach ($output as $key => $value)
             {
-                unset($output[$key]);
-            }
-            else
-            {
-                $queries[] = array(
-                    'sql' => $value,
-                    //'duration_str' => 1,
-                );
+                // Clean all "resuldsets" outputs
+                if (substr($value, 0, 9) == 'resultset')
+                {
+                    unset($output[$key]);
+                }
+                else
+                {
+                    $queries[] = array(
+                        'sql' => $value,
+                        //'duration_str' => 1,
+                    );
+                }
             }
         }
+
         
         return array(
             'nb_statements' => count($queries),
@@ -47,13 +53,13 @@ class RedBeanCollector extends \DebugBar\DataCollector\DataCollector implements 
     public function getWidgets()
     {
         return array(
-            "database" => array(
+            "RedBean" => array(
                 "icon" => "inbox",
                 "widget" => "PhpDebugBar.Widgets.SQLQueriesWidget",
                 "map" => "redbean",
                 "default" => "[]"
             ),
-            "database:badge" => array(
+            "RedBean:badge" => array(
                 "map" => "redbean.nb_statements",
                 "default" => 0
             )
