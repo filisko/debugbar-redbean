@@ -1,7 +1,7 @@
 <?php
 namespace Filisko\DebugBar\DataCollector;
 
-class RedBeanCollector extends DebugBar\DataCollector\DataCollector implements DebugBar\DataCollector\Renderable, DebugBar\DataCollector\AssetProvider
+class RedBeanCollector extends \DebugBar\DataCollector\DataCollector implements \DebugBar\DataCollector\Renderable, \DebugBar\DataCollector\AssetProvider
 {
     protected $debugStack;
     
