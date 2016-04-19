@@ -5,9 +5,8 @@ class RedBeanCollector extends \DebugBar\DataCollector\DataCollector implements 
 {
     protected $debugStack;
     
-    public function __construct(\RedBeanPHP\Facade $rb)
+    public function __construct($logger)
     {
-        $logger = $rb->getLogger();
         $this->debugStack = $logger;
     }
     
