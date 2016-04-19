@@ -2,7 +2,7 @@
 With this collector you will be able to see a new section in your Debugbar called "RedBean", which will contain all the executed queries by RedBean.
 
 ## Install
-To install it simply run:
+To install it you can use Composer:
 
 `composer require filisko/debugbar-redbean`
 
