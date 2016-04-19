@@ -1,0 +1,19 @@
+{
+    "name": "filisko/debugbar-redbean",
+    "description": "RedBeanPHP Collector for Debugbar",
+    "keywords": ["redbean", "debugbar", "collector"],
+    "type": "package",
+    "require": {
+        "maximebf/debugbar": "^1.11"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {"Filisko\\DebugBar\\DataCollector\\": "src/"}
+    },
+    "authors": [
+        {
+            "name": "Filisko",
+            "email": "filisfutsarov@gmail.com"
+        }
+    ]
+}
