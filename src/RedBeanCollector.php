@@ -47,8 +47,8 @@ class RedBeanCollector extends \DebugBar\DataCollector\DataCollector implements 
                     $value = str_replace('-- keep-cache', '', $value);
                 }
                 $queries[] = array(
-                    // 1 space maximum
-                    'sql' => preg_replace('!\s+!', ' ', $value)
+                    // 1 space maximum and no HTML included tags by RedBean
+                    'sql' => strip_tags(preg_replace('!\s+!', ' ', $value))
                     //'duration_str' => 1,
                 );
             }
