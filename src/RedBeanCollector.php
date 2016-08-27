@@ -3,39 +3,56 @@ namespace Filisko\DebugBar\DataCollector;
 
 class RedBeanCollector extends \DebugBar\DataCollector\DataCollector implements \DebugBar\DataCollector\Renderable, \DebugBar\DataCollector\AssetProvider
 {
-    protected $debugStack;
+    /**
+     * Whether to show or not '--keep-cache' in your queries.
+     * @var boolean
+     */
+    public static $showKeepCache = false;
 
-    public function __construct($logger)
+    /**
+     * Logger must implement RedBean's Logger interface.
+     * @var \RedBeanPHP\Logger
+     */
+    protected $logger;
+
+    /**
+     * Set RedBean's logger
+     * @param \RedBeanPHP\Logger $logger
+     */
+    public function __construct(\RedBeanPHP\Logger $logger)
     {
-        $this->debugStack = $logger;
+        $this->logger = $logger;
     }
 
+    /**
+     * Collect all the executed queries by now.
+     */
     public function collect()
     {
         // Get all SQL output
         $queries = [];
 
-        if ($this->debugStack)
+        $output = $this->logger->grep(' ');
+        $queries = array();
+        foreach ($output as $key => $value)
         {
-            $output = $this->debugStack->grep(' ');
-            $queries = array();
-            foreach ($output as $key => $value)
+            // Clean all "resuldsets" outputs
+            if (substr($value, 0, 9) == 'resultset')
             {
-                // Clean all "resuldsets" outputs
-                if (substr($value, 0, 9) == 'resultset')
-                {
-                    unset($output[$key]);
+                unset($output[$key]);
+            }
+            else
+            {
+                if (! self::$showKeepCache) {
+                    $value = str_replace('-- keep-cache', '', $value);
                 }
-                else
-                {
-                    $queries[] = array(
-                        'sql' => $value,
-                        //'duration_str' => 1,
-                    );
-                }
+                $queries[] = array(
+                    // 1 space maximum
+                    'sql' => preg_replace('!\s+!', ' ', $value)
+                    //'duration_str' => 1,
+                );
             }
         }
-
 
         return array(
             'nb_statements' => count($queries),
