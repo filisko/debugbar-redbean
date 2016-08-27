@@ -35,7 +35,6 @@ $debugbar = new \DebugBar\StandardDebugBar();
 $debugbar->addCollector(new \Filisko\DebugBar\DataCollector\RedBeanCollector($logger));
 ```
 
-#### Extras
 If you realized that RedBean puts at the end of your SQL queries something like '--keep-cache' for internal caching purposes and you want to hide this part from the logger, you could simply use a static flag to disable it:
 ```php
 \Filisko\DebugBar\DataCollector\RedBeanCollector::$showKeepCache = false; // That's all!
