@@ -1,36 +1,42 @@
 # RedBean collector for Debugbar
-With this collector you will be able to see a new section in your Debugbar called "RedBean", which will contain all the executed queries by RedBean.
 
-## Install
-To install it you can use Composer:
+## Result
+![RedBeanPHP collector for Debugbar](https://i.snag.gy/oLuxqH.jpg "RedBeanPHP collector for Debugbar")
+
+
+## Installation and configuration
+Install it via composer:
 
 `composer require filisko/debugbar-redbean`
 
-Once installed, you to make use of the addCollector() method of Debugbar to add RedBean's collector. So you may have something like that somewhere:
-```php
-$debugbar = new \DebugBar\StandardDebugBar();
-```
+To make this work you must enable RedBean's debug mode to log your queries. You can simply use RedBean's Facade debug() method.
 
-And adding our collector: 
-```php
-$debugbar = new \DebugBar\StandardDebugBar();
-$debugbar->addCollector(new Filisko\DebugBar\DataCollector\RedBeanCollector(R::getLogger()));
-```
+## How to use
 
-Something very **IMPORTANT** is that you have to pass your logger as a parameter to the collector. To get your RedBean's logger use the provided method by RedBean called **R::getLogger()**.
-
-And last but not least, remember that to be able to see the executed SQL queries by RedBean, you must enable the debug mode.
+To use this logger with any application, you could basically do something like that:
 
 ```php
+R::setup('mysql:host=hostname;dbname=db', 'username', 'password');
 /*
 Possible log modes:
 -------------------
 0 Log and write to STDOUT classic style (default)
 1 Log only, class style
 2 Log and write to STDOUT fancy style
-3 Log only, fancy style
+3 Log only, fancy style (it works nicely with this one)
 */
-R::debug(TRUE, 1);
+R::debug(true, 3);
+
+// ... your queries here ...
+
+// Get RedBean's Logger
+$logger = R::getLogger();
+$debugbar = new \DebugBar\StandardDebugBar();
+$debugbar->addCollector(new \Filisko\DebugBar\DataCollector\RedBeanCollector($logger));
 ```
 
-After that you should see a tab in your Debugbar called "RedBean".
+#### Extras
+If you realized that RedBean puts at the end of your SQL queries something like '--keep-cache' for internal caching purposes and you want to hide this part from the logger, you could simply use a static flag to disable it:
+```php
+\Filisko\DebugBar\DataCollector\RedBeanCollector::$showKeepCache = false; // That's all!
+```
