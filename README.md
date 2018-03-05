@@ -1,4 +1,4 @@
-# RedBean collector for Debugbar
+# RedBeanPHP collector for Debugbar
 
 ## Result
 ![RedBeanPHP collector for Debugbar](https://i.snag.gy/oLuxqH.jpg "RedBeanPHP collector for Debugbar")
