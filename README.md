@@ -44,4 +44,4 @@ If you realized that RedBean puts at the end of your SQL queries something like 
 
 ### Suggestions, ideas, etc.
 
-If you have suggestions, ideas or anything else, just write me an email (filisfutsarov@gmail.com) or create an issue in this repository.
+If you have suggestions, ideas or anything else, just write me an email (filisfutsarov[at]gmail.com) or create an issue in this repository.
