@@ -7,7 +7,9 @@
 ## Installation and configuration
 Install it via composer:
 
-`composer require filisko/debugbar-redbean`
+```
+composer require filisko/debugbar-redbean`
+```
 
 To make this work you must enable RedBean's debug mode to log your queries. You can simply use RedBean's Facade **debug()** method.
 
